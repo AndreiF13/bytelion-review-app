@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 // Utils
 import * as screenUtils from '../../helpers/ScreenUtils';
-import { getItem, removeItem, saveItem } from '../../helpers/AsynStorage';
+import { getItem, saveItem } from '../../helpers/AsynStorage';
 import apiRequest from '../../services/APIRequest';
 import moment from 'moment';
 import { createOrUpdateVoteItem } from '../../helpers/VotesCRUD';
@@ -55,7 +55,7 @@ export default function ReviewsScreen() {
         setIsLoading(false);
         calculateAverageRate(response);
         setReviews(response);
-        getLocalStoredReviews();
+        //getLocalStoredReviews();
       }
     }).catch((error: any) => {
       setIsLoading(false);
@@ -64,7 +64,7 @@ export default function ReviewsScreen() {
 
   const getLocalStoredReviews = () => {
     getItem(savedReviewsKeyStore).then((value) => {
-      if (value) {
+      if (value) {        
         dispatch(updateReviews(JSON.parse(value)));
       }
     });
@@ -73,26 +73,26 @@ export default function ReviewsScreen() {
   const voteReview = (item: IReviewItem, up: boolean, down: boolean) => {
     item.up_voted = up;
     item.down_voted = down;
-    const updatedReviews: IReviewItem[] = createOrUpdateVoteItem(savedReviews as IReviewItem[], item) as IReviewItem[];
+    /*const updatedReviews: IReviewItem[] = createOrUpdateVoteItem(savedReviews as IReviewItem[], item) as IReviewItem[];
     if (updatedReviews) {
-      saveItem(savedReviewsKeyStore, JSON.stringify(updatedReviews));
+      //saveItem(savedReviewsKeyStore, JSON.stringify(updatedReviews));
       dispatch(updateReviews(updatedReviews));
-    }
+    }*/
   }
 
   const isUpVoted = (item: IReviewItem): boolean => {
-    const filteredArray = savedReviews?.filter((i: IReviewItem) => { return i.id == item.id && i?.up_voted });
+    /*const filteredArray = savedReviews?.filter((i: IReviewItem) => { return i.id == item.id && i?.up_voted });
     if (filteredArray) {
       return filteredArray.length >= 1;
-    }
+    }*/
     return false;
   }
 
   const isDownVoted = (item: IReviewItem): boolean => {
-    const filteredArray = savedReviews?.filter((i: IReviewItem) => { return i.id == item.id && i?.down_voted });
+    /*const filteredArray = savedReviews?.filter((i: IReviewItem) => { return i.id == item.id && i?.down_voted });
     if (filteredArray) {
       return filteredArray.length >= 1;
-    }
+    }*/
     return false;
   }
 
@@ -137,7 +137,7 @@ export default function ReviewsScreen() {
   React.useEffect(() => {
     getAuthUserInfo();
     fetchReviews();
-  }, [dispatch]);
+  }, []);
 
   return (
     <View style={styles.mainWrapper}>
@@ -178,6 +178,7 @@ export default function ReviewsScreen() {
           <FlatList
             data={reviews}
             renderItem={renderListItem}
+            keyExtractor={(item, index) => item.id.toString()}
           />
         </View>        
       )}
