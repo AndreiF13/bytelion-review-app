@@ -11,59 +11,59 @@ import { BottomTabParamList, ReviewsParamList, SettingsParamList } from '../type
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+type ColorProps = {
+    color: string;
+};
 
-  return (
-    <BottomTab.Navigator
-      initialRouteName="Reviews"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
-      <BottomTab.Screen
-        name="Reviews"
-        component={ReviewsNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="user-check" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Settings"                                  
-        component={SettingsNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="sliders" color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
-  );
+export default function BottomTabNavigator(): JSX.Element {
+    const colorScheme = useColorScheme();
+
+    return (
+        <BottomTab.Navigator initialRouteName="Reviews" tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+            <BottomTab.Screen
+                name="Reviews"
+                component={ReviewsNavigator}
+                options={{
+                    // eslint-disable-next-line react/display-name
+                    tabBarIcon: ({ color }: ColorProps) => <TabBarIcon name="user-check" color={color} />,
+                }}
+            />
+            <BottomTab.Screen
+                name="Settings"
+                component={SettingsNavigator}
+                options={{
+                    // eslint-disable-next-line react/display-name
+                    tabBarIcon: ({ color }: ColorProps) => <TabBarIcon name="sliders" color={color} />,
+                }}
+            />
+        </BottomTab.Navigator>
+    );
 }
 
 function TabBarIcon(props: { name: React.ComponentProps<typeof Feather>['name']; color: string }) {
-  return <Feather size={30} style={{ marginBottom: -3 }} {...props} />;
+    return <Feather size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 const ReviewsStack = createStackNavigator<ReviewsParamList>();
 
 function ReviewsNavigator() {
-  return (
-    <ReviewsStack.Navigator>     
-      <ReviewsStack.Screen
-        name="ReviewsScreen"
-        component={ReviewsScreen}
-        options={{ headerTitle: 'Reviews' }}
-      />
-    </ReviewsStack.Navigator>
-  );
+    return (
+        <ReviewsStack.Navigator>
+            <ReviewsStack.Screen name="ReviewsScreen" component={ReviewsScreen} options={{ headerTitle: 'Reviews' }} />
+        </ReviewsStack.Navigator>
+    );
 }
 
 const SettingsStack = createStackNavigator<SettingsParamList>();
 
 function SettingsNavigator() {
-  return (
-    <SettingsStack.Navigator>
-      <SettingsStack.Screen
-        name="SettingsScreen"
-        component={SettingsScreen}
-        options={{ headerTitle: 'Settings' }}
-      />
-    </SettingsStack.Navigator>
-  );
+    return (
+        <SettingsStack.Navigator>
+            <SettingsStack.Screen
+                name="SettingsScreen"
+                component={SettingsScreen}
+                options={{ headerTitle: 'Settings' }}
+            />
+        </SettingsStack.Navigator>
+    );
 }

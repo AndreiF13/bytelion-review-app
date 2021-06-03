@@ -1,28 +1,11 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import { Text, View } from '../../components/Themed';
+import { View, Text } from 'react-native';
+import { styles } from './styles';
 
-export default function SettingnsScreen() {
-  return (
-    <View style={styles.container}>
-
-    </View>
-  );
+export default function SettingnsScreen(): JSX.Element {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>This second tab can be used as a Settings screen.</Text>
+        </View>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

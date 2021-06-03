@@ -1,26 +1,22 @@
-import axios from 'axios';
+// Simple Axiios wrapper to make requests more simple and straighforward
 
-const apiRequest = function(url: string, options: any) {    
-  const onSuccess = function(response: any) {
-  return response.data;
-}
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
 
-const onError = async function(error: any) {
-  if (error.response) {
-  //console.log('Status:',  error.response.status);
-  //console.log('Data:',    error.response.data);
-  //console.log('Headers:', error.response.headers);
-  } else {
-  }
-  return Promise.reject(error.response || error.message);
-}
- 
-const client = axios.create({
-  baseURL: url,
-  timeout: 30000
-});
+const apiRequest = function (url: string, options: AxiosRequestConfig): Promise<AxiosResponse> {
+    const onSuccess = function (response: AxiosResponse) {
+        return response.data;
+    };
 
-return client(options).then(onSuccess).catch(onError);
-}
- 
+    const onError = async function (error: AxiosError) {
+        return Promise.reject(error.response || error.message);
+    };
+
+    const client = axios.create({
+        baseURL: url,
+        timeout: 30000,
+    });
+
+    return client(options).then(onSuccess).catch(onError);
+};
+
 export default apiRequest;
