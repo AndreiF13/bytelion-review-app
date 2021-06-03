@@ -1,6 +1,9 @@
 # Published Expo Project
 - https://expo.io/@gmonteiroitcrowd/app
 
+# Figma File for the Design Idea
+- https://www.figma.com/file/RIVlGVR7AEGMubI4wj9ovF/Byte.lion-Review-Board?node-id=0%3A1
+
 # Components Used
 - **Redux + Redux Persist** to provide a simple way to use localstorage to save user state.
 - **React Native Comumunity DateTime Picker** to give the ability to filter reviews.
