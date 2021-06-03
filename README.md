@@ -1,6 +1,3 @@
-# bytelion-review-app
-Bytelion React Native Company Review App
-
 # Published Expo Project
 - https://expo.io/@gmonteiroitcrowd/app
 
